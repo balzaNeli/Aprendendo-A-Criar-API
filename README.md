@@ -1,1 +1,1 @@
-# Aprendendo-A-Criar-API
+# Criando uma API do zero utilizando Node.js e integrando com um banco de dados.
