@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 import "dotenv/config";
 import pkg from '@prisma/client'
 const { PrismaClient } = pkg
@@ -6,6 +7,7 @@ const { PrismaClient } = pkg
 const prisma = new PrismaClient()
 
 const app = express()
+app.use(cors())
 app.use(express.json())
 
 app.post('/usuarios', async (request, response) => {
