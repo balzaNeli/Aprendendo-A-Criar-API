@@ -73,4 +73,4 @@ app.delete('/usuarios/:id', async (request, response) => {
         response.status(500).json({ error: error.message })
     }
 })
-app.listen(3000)
+app.listen(process.env.PORT || 3000)
