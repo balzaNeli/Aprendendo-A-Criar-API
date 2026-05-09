@@ -1,22 +1,35 @@
-import express, { request } from 'express'
+import express from 'express'
+import "dotenv/config";
+import pkg from '@prisma/client'
+const { PrismaClient } = pkg
+
+const prisma = new PrismaClient()
 
 const app = express()
 app.use(express.json())
 
-
-app.post('/usuarios', (request, response) => {
-
-
-    users.push(request.body)
-
-    
-    response.status(201).json(request.body)
+app.post('/usuarios', async (request, response) => {
+    try {
+        const user = await prisma.user.create({  
+            data: {
+                email: request.body.email,
+                name: request.body.name,
+                age: request.body.age
+            }
+        })
+        response.status(201).json(user)
+    } catch (error) {
+        response.status(500).json({ error: error.message })
+    }
 })
 
-
-app.get('/usuarios', (request, response) => {
-    response.status(200).json(users)
+app.get('/usuarios', async (request, response) => {
+    try {
+        const users = await prisma.user.findMany() 
+        response.status(200).json(users)
+    } catch (error) {
+        response.status(500).json({ error: error.message })
+    }
 })
-
 
 app.listen(3000)
